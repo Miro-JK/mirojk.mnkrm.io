@@ -50,6 +50,17 @@ nav a:hover { color: var(--coral); }
 #hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 #hero .tag { position: absolute; bottom: 40px; left: 30px; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; }
 
+/* Scroll-down button (hero only) */
+.scroll-btn {
+  position: absolute; left: 50%; bottom: 8vh; transform: translateX(-50%);
+  display: grid; place-items: center; width: 84px; height: 84px; border-radius: 50%;
+  background: #961f2a66; border: 1px solid var(--coral); backdrop-filter: blur(4px);
+  color: #fff; font-size: 10px; line-height: 1.3; text-align: center; text-transform: uppercase; letter-spacing: .1em; text-decoration: none;
+  animation: nudge 2s ease-in-out infinite; transition: background .3s;
+}
+.scroll-btn:hover { background: var(--coral); }
+@keyframes nudge { 50% { transform: translate(-50%, 10px); } }
+
 /* ===== Break the limits ===== */
 #break {
   position: relative; z-index: 2; min-height: 100vh; padding: 12vh 6vw;

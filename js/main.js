@@ -49,3 +49,17 @@ function onScroll() {
 }
 addEventListener('scroll', onScroll);
 onScroll();
+
+// Hero: the button and the first scroll gesture auto-scroll to the next section
+const next = document.getElementById('break');
+const goNext = () => next.scrollIntoView({ behavior: 'smooth' });
+document.getElementById('scrollBtn').addEventListener('click', e => { e.preventDefault(); goNext(); });
+
+let heroLock = false;
+addEventListener('wheel', e => {
+  if (e.deltaY > 0 && scrollY < 10 && !heroLock) {
+    heroLock = true;
+    goNext();
+    setTimeout(() => (heroLock = false), 1200);
+  }
+}, { passive: true });
