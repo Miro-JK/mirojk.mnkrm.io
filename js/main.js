@@ -50,10 +50,31 @@ function onScroll() {
 addEventListener('scroll', onScroll);
 onScroll();
 
-// Hero: the button and the first scroll gesture auto-scroll to the next section
+// Hero: "scroll down" bubble follows the cursor; click or wheel goes to the next section
+const hero = document.getElementById('hero');
+const bubble = document.getElementById('scrollBtn');
 const next = document.getElementById('break');
 const goNext = () => next.scrollIntoView({ behavior: 'smooth' });
-document.getElementById('scrollBtn').addEventListener('click', e => { e.preventDefault(); goNext(); });
+
+let overNav = false;
+let x = innerWidth / 2, y = innerHeight / 2, bx = x, by = y;
+addEventListener('mousemove', e => { x = e.clientX; y = e.clientY; });
+
+document.querySelectorAll('nav, .brand').forEach(el => {
+  el.addEventListener('mouseenter', () => (overNav = true));
+  el.addEventListener('mouseleave', () => (overNav = false));
+});
+
+function follow() {
+  bx += (x - bx) * 0.15;
+  by += (y - by) * 0.15;
+  bubble.style.transform = `translate(${bx - 42}px, ${by - 42}px)`;
+  bubble.classList.toggle('visible', scrollY < innerHeight * 0.6 && !overNav);
+  requestAnimationFrame(follow);
+}
+follow();
+
+hero.addEventListener('click', goNext);
 
 let heroLock = false;
 addEventListener('wheel', e => {
